@@ -21,16 +21,16 @@ const int W = 40;
 
 String TileMap[H] = {
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
-"B                                      B",
+"B                                B     B",
+"B                                B     B",
+"B                                B     B",
+"B                                B     B",
+"B         0000                BBBB     B",
+"B                                B     B",
+"BBB                              B     B",
+"B              BB                BB    B",
+"B              BB                      B",
+"B    B         BB         BB           B",
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 };
 
@@ -58,10 +58,8 @@ int x,y;
 int prev_x, prev_y;
 FloatRect rect;
 Sprite sprite;
-//Text text;
 bool OVER;
 bool WIN;
-//int dir;
 int move;
 enum { UP, DOWN, LEFT, RIGHT, STOP };
 int B_count;
@@ -84,9 +82,7 @@ int B_count;
    void update()
    {
 	 if ( x < 1 ) x = 1;
-//	 if ( x > 38 ) x = 38;
 	 if ( y < 1 ) y = 1;
-//	 if ( y > 10 ) y = 10;
 
 
 	 Collision( move );
@@ -155,7 +151,7 @@ int B_count;
    }
    void TheGameIsOver ()
    {
-	   	   if ( B_count >= 200  )
+	   	   if ( B_count >= ( H * W ) - 2 )
 	   {
 		   WIN = true;
 	   }
@@ -178,7 +174,6 @@ int main()
     View view;
 	view.reset(FloatRect(0, 0, window.getSize().x, window.getSize().y));
     window.setVerticalSyncEnabled (true);
-//    window.setKeyRepeatEnabled(false);
     Texture t;
     Texture tileSet;
     String s = "_TEBE GAMOVER_";
@@ -192,7 +187,6 @@ int main()
 	text.setFont(font);
 	text.setString(s);
 	text.setCharacterSize( 32 * 2 );
-//	text.setPosition(W/2*32-32, H/2*32-32 );
 	text.setPosition(view.getCenter().x-((int)s.getSize()*32/2), view.getCenter().y-text.getCharacterSize());
 	text.setFillColor(Color(FONT_COLOR));
 	text.setOutlineColor(Color(0,0,0,255));
@@ -219,9 +213,6 @@ int main()
 		clock.restart();
 		float time = clock.getElapsedTime().asMicroseconds();
 
-//		time = time/700;
-//
-//		if (time>20) time = 20;
 
 		Event event;
         while (window.pollEvent(event))
@@ -307,21 +298,19 @@ int main()
 				window.draw(tile);
 			 }
 
-//		if ( p.B_count >= ( H*W - 1) )
-//		{
-//			text.setString("!!! YOU WIN !!!");
-//			window.draw(text);
-//		}
-
 		window.draw(p.sprite);
 
 		if ( p.OVER == true )
 		{
 			window.draw(text);
 		}
+		if ( p.WIN == true )
+		{
+			text.setString("!!! YOU WIN !!!");
+			window.draw(text);
+		}
         window.display();
         p.RemapTile();
-//        p.TheGameIsOver();
 
         p.B_count = 0;
     }
