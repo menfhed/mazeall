@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 
@@ -183,6 +184,11 @@ int main()
     font.loadFromFile("res/kokilab.ttf");
     t.loadFromFile("res/pers.png");
 
+    //music
+    Music music;//создаем объект музыки
+    music.openFromFile("res/sound.ogg");//загружаем файл
+    music.play();//воспроизводим музыку
+
     Text text;
 	text.setFont(font);
 	text.setString(s);
@@ -212,7 +218,6 @@ int main()
     {
 		clock.restart();
 		float time = clock.getElapsedTime().asMicroseconds();
-
 
 		Event event;
         while (window.pollEvent(event))
@@ -303,11 +308,13 @@ int main()
 		if ( p.OVER == true )
 		{
 			window.draw(text);
+			music.stop();
 		}
 		if ( p.WIN == true )
 		{
 			text.setString("!!! YOU WIN !!!");
 			window.draw(text);
+			music.stop();
 		}
         window.display();
         p.RemapTile();

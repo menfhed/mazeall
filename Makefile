@@ -1,5 +1,5 @@
 all:
-	g++ main.cpp -o app -lsfml-graphics -lsfml-window -lsfml-system
+	g++ main.cpp -o start -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 clean:
-	rm -rf  app *.o
+	rm -rf  start *.o
