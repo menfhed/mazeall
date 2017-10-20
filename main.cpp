@@ -18,21 +18,10 @@ using namespace sf;
 #define PREVIUS_PLACE   grid[prev_y][prev_x]
 
 
-//#define TILE_ON_RIGHT   grid[x][y+1]
-//#define TILE_ON_LEFT    grid[x][y-1]
-//#define TILE_FROM_ABOVE grid[x-1][y]
-//#define TILE_FROM_BELOW grid[x+1][y]
-//#define CURRENT_PLACE   grid[x][y]
-//#define PREVIUS_PLACE   grid[prev_x][prev_y]
-
 #define FONT_COLOR         242, 244, 0, 255
 #define BACKGROUND_COLOR  191, 113, 48, 255
 
-const int H = 12;
-const int W = 40;
-
 extern int **grid;
-extern int **grid2;
 
 //===================================================================
 
@@ -46,13 +35,12 @@ public:
 
 int x,y;
 int xX, yY;
+int x_x = 0, y_y = 0;
 int prev_x, prev_y;
 FloatRect rect;
 Sprite sprite;
-//Text text;
 bool OVER;
 bool WIN;
-//int dir;
 int move;
 enum { UP, DOWN, LEFT, RIGHT, STOP };
 int B_count;
@@ -62,32 +50,36 @@ int B_count;
 	sprite.setTexture(image);
 	x = 1;
 	y = 1;
-	xX = 10;
-	yY = 10;
+	xX = 20;
+	yY = 20;
 	OVER = false;
 	WIN  = false;
 	prev_x = x;
 	prev_y = y;
-	rect = FloatRect(x * 32,y * 32, 40, 50);
 	move = STOP;
 	B_count = 0;
+	rect = FloatRect( x * 32, y * 32, 40, 50);
 	main_gen( xX, yY, 40, 6, 2, 1000);
-	// init map
-//	TileMap = (String**)malloc(sizeof(String*) * yY);
-//	for( int i = 0; i < yY; i++)
-//	{
-//		TileMap [i] = (String*)malloc(sizeof(String) * xX);
-//	}
+	// Ищем свободное место для первой позиции
+	while ( grid[x_x][y_y] == 1 )
+	{
+		x_x++;
+		y_y++;
+		x = x_x;
+		y = y_y;
 
-   }
+	}
+	}
+
+
 
 
    void update()
    {
 	 if ( x < 1 ) x = 1;
-//	 if ( x > 38 ) x = 38;
+//	 if ( x > xX ) x --;
 	 if ( y < 1 ) y = 1;
-//	 if ( y > 10 ) y = 10;
+//	 if ( y > yY ) y --;
 
 
 	 Collision( move );
@@ -99,72 +91,70 @@ int B_count;
    }
 
    void Collision(int direction)
-   {
-	   if ( CURRENT_PLACE == 'B' )
-	   {
-		   if ( direction == UP )
-		   {
-			   if ( TILE_FROM_ABOVE == 'B' )
-			   {
-				   move = STOP;
-				   y = prev_y;
-			   }
-			   else y++;
-		   }
-		   if ( direction == DOWN )
-		   {
-			   if ( TILE_FROM_BELOW == 'B' )
-			   {
-				   move = STOP;
-				   y = prev_y;
-			   }
-			   else y--;
-		   }
-		   if ( direction == LEFT )
-		   {
-			   if ( TILE_ON_LEFT == 'B' )
-			   {
-				   move = STOP;
-				   x = prev_x;
-			   }
-			   else x++;
-		   }
-		   if ( direction == RIGHT )
-		   {
-			   if ( TILE_ON_RIGHT == 'B' )
-			   {
-				   move = STOP;
-				   x = prev_x;
-			   }
-			   else x--;
-		   }
-	   }
-	   if ( CURRENT_PLACE == '0' )
-	   {
-		   CURRENT_PLACE = ' ';
-	   }
-   }
+      {
+   	   if ( CURRENT_PLACE == 1 )
+   	   {
+   		   if ( direction == UP )
+   		   {
+   			   if ( TILE_FROM_ABOVE == 1 )
+   			   {
+   				   move = STOP;
+   				   y = prev_y;
+   			   }
+   			   else y++;
+   		   }
+   		   if ( direction == DOWN )
+   		   {
+   			   if ( TILE_FROM_BELOW == 1 )
+   			   {
+   				   move = STOP;
+   				   y = prev_y;
+   			   }
+   			   else y--;
+   		   }
+   		   if ( direction == LEFT )
+   		   {
+   			   if ( TILE_ON_LEFT == 1 )
+   			   {
+   				   move = STOP;
+   				   x = prev_x;
+   			   }
+   			   else x++;
+   		   }
+   		   if ( direction == RIGHT )
+   		   {
+   			   if ( TILE_ON_RIGHT == 1 )
+   			   {
+   				   move = STOP;
+   				   x = prev_x;
+   			   }
+   			   else x--;
+   		   }
+   	   }
 
-   void RemapTile ()
-   {
- 	   if ( move != STOP )
- 	   {
- 		 move = STOP;
- 		 PREVIUS_PLACE = 'B';
- 		 TheGameIsOver();
- 	   }
-   }
+      }
+
+      void RemapTile ()
+      {
+    	   if ( move != STOP )
+    	   {
+    		 move = STOP;
+    		 PREVIUS_PLACE = 1;
+    		 TheGameIsOver();
+    	   }
+      }
+
    void TheGameIsOver ()
    {
-	   	   if ( B_count >= ( H * W ) - 2 )
+	   	   if ( B_count >= ( xX * yY ) - 2 )
 	   {
 		   WIN = true;
 	   }
 	   	   else
-	   		   if ( ( TILE_FROM_ABOVE == 'B') &&
-	   			    ( TILE_FROM_BELOW == 'B') &&
-				    ( TILE_ON_LEFT    == 'B') &&
-				    ( TILE_ON_RIGHT   == 'B') )
+	   		   if ( ( TILE_FROM_ABOVE == 1) &&
+	   			    ( TILE_FROM_BELOW == 1) &&
+				    ( TILE_ON_LEFT    == 1) &&
+				    ( TILE_ON_RIGHT   == 1) )
 	   		   {
 	   			   OVER = true;
 	   		   }
@@ -188,7 +178,8 @@ int main()
     //music
     Music music;//создаем объект музыки
     music.openFromFile("res/sound.ogg");//загружаем файл
-//    music.play();//воспроизводим музыку
+    music.play();//воспроизводим музыку
+    music.setVolume(5);
 
     Text text;
 	text.setFont(font);
@@ -223,11 +214,8 @@ int main()
     while (window.isOpen())
     {
 		clock.restart();
-		float time = clock.getElapsedTime().asMicroseconds();
+//		float time = clock.getElapsedTime().asMicroseconds();
 
-//		time = time/700;
-//
-//		if (time>20) time = 20;
 		Event event;
         while (window.pollEvent(event))
         {
@@ -238,10 +226,12 @@ int main()
 		{
 			if ( IsKeyPressedOneTime == false )
 			{
+				printf("x:%i, y:%i\n", p.x, p.y);
 				p.prev_x = p.x;
 				p.prev_y = p.y;
 				p.x--;
 				p.move = p.LEFT;
+				printf("LEFT\n");
 			}
 				IsKeyPressedOneTime = true;
 		}
@@ -249,10 +239,12 @@ int main()
 	    {
 	    	if ( IsKeyPressedOneTime == false )
 	    	{
+	    		printf("x:%i, y:%i\n", p.x, p.y);
 	    		p.prev_x = p.x;
 				p.prev_y = p.y;
 	    		p.x++;
 	    		p.move = p.RIGHT;
+	    		printf("RIGHT\n");
 	    	}
 				IsKeyPressedOneTime = true;
 	    }
@@ -261,10 +253,12 @@ int main()
 		{
 	    	if ( IsKeyPressedOneTime == false )
 			{
+	    		printf("x:%i, y:%i\n", p.x, p.y);
 	    		p.prev_x = p.x;
 				p.prev_y = p.y;
 				p.y--;
 				p.move = p.UP;
+				printf("UP\n");
 			}
 	    		IsKeyPressedOneTime = true;
 
@@ -274,10 +268,12 @@ int main()
 		{
 			if ( IsKeyPressedOneTime == false )
 			{
+				printf("x:%i, y:%i\n", p.x, p.y);
 				p.prev_x = p.x;
 				p.prev_y = p.y;
 				p.y++;
 				p.move = p.DOWN;
+				printf("DOWN\n");
 			}
 				IsKeyPressedOneTime = true;
 		}
@@ -295,20 +291,17 @@ int main()
 			  {
 				if ( grid[i][j]== 1 )
 				{
-//					printf("g1");
 					tile.setTextureRect( IntRect(32,0,32,32) );
 					p.B_count++;
 				}
 
 				if ( grid[i][j]== 0 )
 				{
-//					printf("g2");
 					tile.setTextureRect( IntRect(0,0,32,32) );
 				}
 
-			//	if ( TileMap[i][j]=='0' ) continue;
 
-				tile.setPosition( j*32, i*32 ) ;
+				tile.setPosition( j * 32, i * 32 ) ;
 				window.draw(tile);
 			 }
 

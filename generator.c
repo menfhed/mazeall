@@ -5,6 +5,14 @@
  *      Author: npp
  */
 
+
+/*
+ * Модуль генерирует карту типа "подземелья".
+ * Алгориитм работает на клеточных автоматах.
+ * Оригинаный код принадлежит  Jim Babcock
+ * Статья откуда взято: http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels
+ *
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -133,17 +141,6 @@ void printmap(void)
 		}
 		putchar('\n');
 	}
-	for(yi=0; yi<size_y; yi++)
-		{
-			for(xi=0; xi<size_x; xi++)
-			{
-				if (grid2[yi][xi] == 1 )
-					printf("%i", 1);
-				if (grid2[yi][xi] == 0 )
-					printf("%i", 0);
-			}
-			putchar('\n');
-		}
 }
 
 
@@ -152,25 +149,18 @@ int main_gen(int x_in, int y_in, int fillprob_in, int r1_in, int r2_in, int reps
 {
 	int ii, jj;
 
-//	if(argc < 7) {
-//		printf("Usage: %s xsize ysize fill (r1 r2 count)+\n", argv[0]);
-//		return 1;
-//	}
 	size_x     = x_in;
 	size_y     = y_in;
 	fillprob   = fillprob_in;
 
-	generations = 1;//(argc-4)/3;
+	generations = 1;
 
 	params = params_set = (generation_params*)malloc( sizeof(generation_params) * generations );
 
-//	for(ii=4; ii+2 < 7; ii+=3)
-//	{
-		params->r1_cutoff  = r1_in; // atoi(argv[ii]);
-		params->r2_cutoff  = r2_in; // atoi(argv[ii+1]);
-		params->reps = reps_in;     // atoi(argv[ii+2]);
+		params->r1_cutoff  = r1_in;
+		params->r2_cutoff  = r2_in;
+		params->reps = reps_in;
 		params++;
-//	}
 
 	srand(time(NULL));
 
