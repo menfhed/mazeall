@@ -147,7 +147,6 @@ int B_count;
    }
 };
 
-
 int main()
 {
 
@@ -170,8 +169,7 @@ int main()
 	text.setFont(font);
 	text.setString(s);
 	text.setCharacterSize( 32 * 2 );
-//	text.setPosition(W/2*32-32, H/2*32-32 );
-//
+
 	text.setFillColor(Color(FONT_COLOR));
 	text.setOutlineColor(Color(0,0,0,255));
 	text.setStyle(Text::Bold);
