@@ -8,8 +8,6 @@
 
 using namespace sf;
 
-
-
 #define TILE_ON_RIGHT   grid[y][x+1]
 #define TILE_ON_LEFT    grid[y][x-1]
 #define TILE_FROM_ABOVE grid[y-1][x]
@@ -17,17 +15,12 @@ using namespace sf;
 #define CURRENT_PLACE   grid[y][x]
 #define PREVIUS_PLACE   grid[prev_y][prev_x]
 
-
 #define FONT_COLOR         242, 244, 0, 255
 #define BACKGROUND_COLOR  191, 113, 48, 255
 
 extern int **grid;
 
 //===================================================================
-
-
-
-
 
 class Player {
 
@@ -71,16 +64,10 @@ int B_count;
 	}
 	}
 
-
-
-
    void update()
    {
 	 if ( x < 1 ) x = 1;
-//	 if ( x > xX ) x --;
 	 if ( y < 1 ) y = 1;
-//	 if ( y > yY ) y --;
-
 
 	 Collision( move );
 
