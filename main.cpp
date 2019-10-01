@@ -20,8 +20,6 @@ using namespace sf;
 
 extern int **grid;
 
-//===================================================================
-
 class Player {
 
 public:
