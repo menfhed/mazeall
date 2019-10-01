@@ -5,7 +5,6 @@
  *      Author: npp
  */
 
-
 /*
  * Модуль генерирует карту типа "подземелья".
  * Алгориитм работает на клеточных автоматах.
@@ -35,8 +34,8 @@ int size_x = 64, size_y = 20;
 generation_params *params;
 
 generation_params *params_set;
-int generations;
 
+int generations;
 int randpick(void)
 {
 	if(rand()%100 < fillprob)
