@@ -13,13 +13,13 @@
  * Статья откуда взято: http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels
  *
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 #define TILE_FLOOR 0
 #define TILE_WALL 1
-
 
 typedef struct {
 	int r1_cutoff, r2_cutoff;
