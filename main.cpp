@@ -14,7 +14,6 @@ using namespace sf;
 #define TILE_FROM_BELOW grid[y+1][x]
 #define CURRENT_PLACE   grid[y][x]
 #define PREVIUS_PLACE   grid[prev_y][prev_x]
-
 #define FONT_COLOR         242, 244, 0, 255
 #define BACKGROUND_COLOR  191, 113, 48, 255
 
@@ -22,22 +21,21 @@ extern int **grid;
 
 class Player {
 
-public:
+  public:
 
-int x,y;
-int xX, yY;
-int x_x = 0, y_y = 0;
-int prev_x, prev_y;
-FloatRect rect;
-Sprite sprite;
-bool OVER;
-bool WIN;
-int move;
-enum { UP, DOWN, LEFT, RIGHT, STOP };
-int B_count;
-
-    Player(Texture &image, Font &font)
-   {
+  int x,y;
+  int xX, yY;
+  int x_x = 0, y_y = 0;
+  int prev_x, prev_y;
+  FloatRect rect;
+  Sprite sprite;
+  bool OVER;
+  bool WIN;
+  int move;
+  enum { UP, DOWN, LEFT, RIGHT, STOP };
+  int B_count;
+      Player(Texture &image, Font &font)
+     {
 	sprite.setTexture(image);
 	x = 1;
 	y = 1;
