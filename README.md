@@ -3,7 +3,7 @@
 
   * Small game in C++ and SFML.
 
-In front of the player is a ``field'` card. You need to sow the lawn in the ground.
+In front of the player is a "field" card. You need to sow the lawn in the ground.
 You can not walk on the planted lawn. You need to sow the whole field.
 
 TODO:
