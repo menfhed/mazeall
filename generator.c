@@ -6,12 +6,12 @@
  */
 
 /*
- * Модуль генерирует карту типа "подземелья".
- * Алгориитм работает на клеточных автоматах.
- * Оригинаный код принадлежит  Jim Babcock
- * Статья откуда взято: http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels
- *
- */
+  * The module generates a "dungeon" type map.
+  * The algorithm works on cellular automata.
+  * Original code belongs to Jim Babcock
+  * Article taken from: http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels
+  *
+  */
 
 #include <stdio.h>
 #include <stdlib.h>
