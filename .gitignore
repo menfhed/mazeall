@@ -2,3 +2,4 @@ start
 .git
 .idea
 .terraform
+.vscode
